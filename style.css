@@ -1,8 +1,9 @@
 :root {
     --bg-b-light: #cfcfcf;
     --bg-content-light: #bababa;
+    --bg-ternary-light: #a7a7a7;
 
-    --bg-main-img: url(smth);
+    --bg-main-img: url();
 }
 
 body {
@@ -48,12 +49,50 @@ body {
     border: #000000 solid 1px;
 }
 
+.card-slider-container::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0);
+    height: 2vh;
+}
+
+.card-slider-container::-webkit-scrollbar-track {
+    background-color: var(--bg-content-light);
+}
+
+.card-slider-container::-webkit-scrollbar-thumb {
+    background-color: var(--bg-ternary-light);
+    border-radius: 10px;
+}
+
+.card-slider-container::-webkit-scrollbar-thumb:hover {
+    background-color: var(--bg-b-light);
+    border-radius: 10px;
+}
+
 @media (max-width: 767px) {
     .card-slider-container {
         flex-direction: column;
         gap: 10px;
         border: 0;
     }
+
+    .card-slider-container::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.card-slider-container:has(.card-container-empty) {
+    overflow-x: hidden;
+    border: none;
+}
+
+.card-slider-container .card-container-empty {
+    display: flex;
+
+    width: 100%;
+    padding: 1vw;
+
+    justify-content: center;
+    align-items: center;
 }
 
 .card-slider-container .card {

@@ -17,15 +17,7 @@
 
         <div id="websites">
             <h2>Websites</h2>
-            <div class="card-slider-container">
-                <div class="card">
-                    <div class="title">Tynique (Portfolio)</div>
-                    <div class="content">
-                        <img src="media/images/website_1.png" alt="there was something here oops!">
-                    <div class="description">The webstie you are currently looking at.</div>
-                    <span class="url"><a href="https://tyniqe.github.io">Tynique (Github)</a></span>
-                    </div>
-                </div>
+            <div class="card-slider-container" id="website-card-container">
             </div>
         </div>
 
@@ -35,25 +27,52 @@
 
         <div class="projects">
             <h2>Projects</h2>
-            <div class="card-slider-container">
-                <div class="card">
-                    <div class="title">Smth here</div>
-                    <div class="content">
-                        <img src="media/images/project_1.png" alt="there was something here oops!">
-                    <div class="description">Description asdfd</div>
-                    <span class="url"><a href="https://tyniqe.github.io">Tynique (Github)</a></span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="title">Another 1</div>
-                    <div class="content">
-                        <img src="media/images/project_2.png" alt="there was something here oops!">
-                        <div class="description">Description asdfd</div>
-                        <span class="url"><a href="https://tyniqe.github.io">Tynique (Github)</a></span>
-                    </div>
-                </div>
+            <div class="card-slider-container" id="project-card-container">
             </div>
         </div>
     </div>
+    <script>
+
+        function load_card_slider(json_file, card_container_id) {
+            fetch(json_file).then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const container = document.getElementById(card_container_id);
+
+                container.innerHTML = "";
+
+                if(data === null || data === undefined || (Array.isArray(data) && data.length === 0)) {
+                    container.innerHTML += `
+                        <div class="card-container-empty">Nothing to show here!</div>
+                    `
+                    return;
+                }
+
+                for(const element of data) {
+                    container.innerHTML += `
+                    <div class="card">
+                        <div class="title">${element.title}</div>
+                        <div class="content">
+                            <img src="${element.img.url}" alt="${element.img.alt}">
+                            <div class="description">${element.description}</div>
+                            <span class="url"><a href="${element.url.url}">${element.url.placeholder}</a></span>
+                        </div>
+                    </div>
+                    `
+                };
+            })
+            .catch(error => {
+                console.error("Error loading JSON file: ", error);
+            });
+        }
+
+        load_card_slider("./data/website_showcase.json", "website-card-container");
+        load_card_slider("./data/project_showcase.json", "project-card-container");
+
+    </script>
 </body>
 </html>

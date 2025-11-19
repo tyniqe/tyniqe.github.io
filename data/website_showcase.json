@@ -1,0 +1,14 @@
+[
+    {
+        "title": "Tynique (Portfolio)",
+        "description": "The webstie you are currently looking at.",
+        "img": {
+            "url": "media/images/website_1.png",
+            "alt": "there was something here oops!"
+        },
+        "url": {
+            "placeholder": "Tynique (Github)",
+            "url": "https://tyniqe.github.io"
+        }
+    }
+]
